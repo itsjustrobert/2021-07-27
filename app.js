@@ -35,16 +35,18 @@ let Seattle = {
   cookiesSoldPerHour: [],
 
   totalDailyCookies: 0,
-    // determine how many customers to expect per hour open
-// push random customers to customer per hour array
- getCookiesSoldPerHour: function () {
-    this.totalDailyCookies=0;
-    for (let i = 0; i < this.customersPerHours.length; i++) {
-      let totalDailyCookies=Math.floor(this.customersPerHour[index]*this.averageCookiesSold);  
-        }
-    },
   // determine how many customers to expect per hour open
-// push random customers to customer per hour array
+  // push random customers to customer per hour array
+  getCookiesSoldPerHour: function () {
+    this.totalDailyCookies = 0;
+    for (let i = 0; i < this.customersPerHours.length; i++) {
+      let totalDailyCookies = Math.floor(
+        this.customersPerHour[index] * this.averageCookiesSold
+      );
+    }
+  },
+  // determine how many customers to expect per hour open
+  // push random customers to customer per hour array
   getCustomersPerHour: function () {
     for (let i = 0; i < businessHours.length; i++) {
       this.customersPerHour.push(
@@ -54,9 +56,22 @@ let Seattle = {
         )
       );
     }
+  },
+//   method rendering the numbers on the webpage
+  render() {
+    this.getCookiesSoldPerHour();
+    const unorderedList = document.getElementById('seattle');
+    for (let i = 0; i < biznessHours.length; i++) {
+        const listItem = document.createElement('li');
+        // 6am: 16 cookies
+        listItem.textContent = biznessHours[i] + ': ' + this.cookiesSoldPerHour[i] + ' cookies';
+        unorderedList.appendChild(listItem);
+    }
+    const listItem = document.createElement('li');
+    listItem.textContent = 'Total: ' + this.totalDailyCookies + ' cookies';
+    unorderedList.appendChild(listItem);
 }
-}
-
+};
 
 
 // we need a generic function customized to our needs, so we can pass in the data we have
@@ -68,57 +83,11 @@ function getRandomNumberOfCustomersAtAGivenRange(
   return Math.floor(
     Math.random() * (maxCustomers - minimumCustomers + 1) + minimumCustomers
   );
-  
 }
 // call the methods
 Seattle.getCustomersPerHour();
 
 for (let index = 0; index < Seattle.customersPerHour.length; index++) {
-    
-    document.write(Seattle.customersPerHour[index]);
+  document.write(Seattle.customersPerHour[index]);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// // // make the 2nd object
-// // let Tokyo={
-// //     //---identify some properties
-// //   minimumCustomers:3,
-// //   maxCustomers:24,
-// //   averageCookiesSold:1.2
-// //   }
-// //   // make the 3rd object
-// // let Dubai={
-// //     //---identify some properties
-// //   minimumCustomers:11,
-// //   maxCustomers:38,
-// //   averageCookiesSold:3.7
-// //   }
-// //   // make the 4th object
-// // let Paris={
-// //   //---identify some properties
-// // minimumCustomers:20,
-// // maxCustomers:38,
-// // averageCookiesSold:3.3
-// // }
-// // // make the 5th object
-// // let Lima={
-// //     //---identify some properties
-// //   minimumCustomers:2,
-// //   maxCustomers:16,
-// //   averageCookiesSold:4.6
-// //   }
+Seattle.render();
